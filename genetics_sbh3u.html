@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBH3U Unit 4 — Genetics Survival Guide 🧬</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dna1: #FF6B6B;
+    --dna2: #4ECDC4;
+    --bg: #0d0d1a;
+    --card: #1a1a2e;
+    --card2: #16213e;
+    --accent: #FFE66D;
+    --green: #06D6A0;
+    --purple: #845EC2;
+    --pink: #FF6FA8;
+    --white: #f0f0f0;
+    --text: #e0e0e0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED DNA BACKGROUND */
+  .dna-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .dna-strand {
+    position: absolute;
+    width: 60px;
+    opacity: 0.07;
+    animation: floatDNA linear infinite;
+  }
+
+  @keyframes floatDNA {
+    0% { transform: translateY(110vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 20px 20px;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--dna1);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    background: linear-gradient(90deg, var(--dna1), var(--accent), var(--dna2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin-top: 8px;
+  }
+
+  /* TIMER */
+  .timer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,13,26,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--dna1);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .timer-dot {
+    width: 10px; height: 10px;
+    background: var(--dna1);
+    border-radius: 50%;
+    animation: blink 1s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  #countdown { color: var(--accent); font-size: 1.3rem; }
+
+  /* MAIN CONTAINER */
+  .container {
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin: 40px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title span {
+    font-size: 2rem;
+  }
+
+  /* CARDS GRID */
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+  /* KEY CARD */
+  .key-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px;
+    border: 2px solid transparent;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .key-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+  }
+
+  .key-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .key-card.red::before { background: var(--dna1); }
+  .key-card.teal::before { background: var(--dna2); }
+  .key-card.yellow::before { background: var(--accent); }
+  .key-card.green::before { background: var(--green); }
+  .key-card.purple::before { background: var(--purple); }
+  .key-card.pink::before { background: var(--pink); }
+
+  .card-emoji { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+  .card-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .card-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #bbb;
+  }
+
+  .highlight {
+    background: rgba(255,230,109,0.15);
+    border-left: 3px solid var(--accent);
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--accent);
+    font-weight: 700;
+    display: inline;
+  }
+
+  /* BIG DNA VISUAL */
+  .dna-visual {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 32px;
+    text-align: center;
+    border: 2px solid rgba(78,205,196,0.3);
+    margin: 30px 0;
+  }
+
+  .dna-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 200px;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .base-pair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    gap: 8px;
+  }
+
+  .nucleotide {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900;
+    font-size: 0.75rem;
+    animation: bounce 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #000;
+  }
+  .nucleotide:hover { transform: scale(1.3); }
+
+  .A { background: var(--dna1); animation-delay: 0s; }
+  .T { background: var(--accent); animation-delay: 0.2s; }
+  .G { background: var(--green); animation-delay: 0.4s; }
+  .C { background: var(--dna2); animation-delay: 0.6s; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .backbone {
+    width: 12px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--purple), var(--pink));
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .rung {
+    position: absolute;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    width: 100%;
+  }
+
+  /* PUNNETT SQUARE */
+  .punnett {
+    display: inline-grid;
+    grid-template-columns: 50px 70px 70px;
+    grid-template-rows: 50px 70px 70px;
+    gap: 3px;
+    margin: 20px auto;
+  }
+
+  .punnett-cell {
+    background: var(--card2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.2s;
+    cursor: default;
+  }
+
+  .punnett-cell:hover { transform: scale(1.1); }
+  .punnett-cell.header { background: transparent; color: var(--accent); font-size: 1.3rem; }
+  .punnett-cell.dominant { background: rgba(6,214,160,0.2); color: var(--green); }
+  .punnett-cell.recessive { background: rgba(255,107,107,0.2); color: var(--dna1); }
+
+  /* TIMELINE / STEPS */
+  .steps {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--dna1), var(--dna2), var(--accent));
+    border-radius: 3px;
+  }
+
+  .step {
+    position: relative;
+    margin-bottom: 24px;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px 20px;
+  }
+
+  .step::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px; height: 26px;
+    background: var(--dna1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.8rem;
+    color: white;
+  }
+
+  .step-title {
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  /* QUIZ CARD */
+  .quiz-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border: 2px solid rgba(255,255,255,0.05);
+    transition: border-color 0.3s;
+  }
+
+  .quiz-q {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-btn {
+    background: var(--card2);
+    border: 2px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .quiz-btn:hover { background: rgba(255,255,255,0.08); transform: translateX(4px); }
+  .quiz-btn.correct { background: rgba(6,214,160,0.2); border-color: var(--green); color: var(--green); }
+  .quiz-btn.wrong { background: rgba(255,107,107,0.2); border-color: var(--dna1); color: var(--dna1); }
+
+  /* CHEAT SHEET */
+  .cheat-sheet {
+    background: linear-gradient(135deg, var(--card), var(--card2));
+    border: 2px solid var(--accent);
+    border-radius: 24px;
+    padding: 32px;
+    margin: 30px 0;
+  }
+
+  .cheat-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .cheat-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 14px;
+    border-left: 3px solid var(--dna2);
+  }
+
+  .cheat-term {
+    font-weight: 900;
+    color: var(--dna2);
+    font-size: 0.95rem;
+  }
+
+  .cheat-def {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* MNEMONIC BOX */
+  .mnemonic {
+    background: linear-gradient(135deg, rgba(132,94,194,0.2), rgba(255,107,168,0.2));
+    border: 2px dashed var(--purple);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .mnemonic-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  .mnemonic-text {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .mnemonic-explain {
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 8px;
+  }
+
+  /* FLOATING CARTOON */
+  .cartoon-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+
+  .cartoon {
+    font-size: 4rem;
+    animation: wiggle 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  .speech-bubble {
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 14px 18px;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: rgba(255,255,255,0.06);
+  }
+
+  /* PROGRESS / RATIO BAR */
+  .ratio-bar {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 50px;
+    margin: 16px 0;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .ratio-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: flex 0.5s;
+    color: #000;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #555;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 5;
+  }
+
+  .go-message {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--green);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ANIMATED DNA BACKGROUND -->
+<div class="dna-bg" id="dnaBg"></div>
+
+<!-- STICKY TIMER -->
+<div class="timer-bar">
+  <div class="timer-dot"></div>
+  <span>⏰ Time until exam:</span>
+  <span id="countdown">60:00</span>
+  <span>— You got this! 🔥</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">SBH3U · Unit 4</div>
+  <h1>GENETICS<br>SURVIVAL GUIDE</h1>
+  <p class="subtitle">Everything you need in 1 hour • No fluff, just facts 🧬</p>
+</header>
+
+<div class="container">
+
+  <!-- ═══════════════════ SECTION 1: DNA BASICS ═══════════════════ -->
+  <div class="section-title reveal"><span>🔬</span> DNA & The Basics</div>
+
+  <!-- Interactive DNA Visual -->
+  <div class="dna-visual reveal">
+    <h3 style="font-family:'Fredoka One',cursive; font-size:1.5rem; margin-bottom:16px; color:var(--accent)">
+      DNA Double Helix — Click the bases! 🧬
+    </h3>
+    <div class="dna-animation">
+      <div class="backbone"></div>
+      <div class="base-pair">
+        <div class="nucleotide A" title="Adenine pairs with Thymine">A</div>
+        <div class="nucleotide T" title="Thymine pairs with Adenine">T</div>
+        <div class="nucleotide G" title="Guanine pairs with Cytosine">G</div>
+        <div class="nucleotide C" title="Cytosine pairs with Guanine">C</div>
+        <div class="nucleotide A">A</div>
+        <div class="nucleotide T">T</div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:space-around; height:100%; gap:8px; padding: 0 4px;">
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+        <div style="width:50px;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
+      </div>
+      <div class="base-pair">
+        <div class="nucleotide T">T</div>
+        <div class="nucleotide A">A</div>
+        <div class="nucleotide C">C</div>
+        <div class="nucleotide G">G</div>
+        <div class="nucleotide T">T</div>
+        <div class="nucleotide A">A</div>
+      </div>
+      <div class="backbone"></div>
+    </div>
+
+    <div class="mnemonic">
+      <div class="mnemonic-title">🧠 Base Pairing Rule — MEMORIZE THIS</div>
+      <div class="mnemonic-text">A — T &nbsp;&nbsp;|&nbsp;&nbsp; G — C</div>
+      <div class="mnemonic-explain">Adenine pairs with Thymine (2 bonds) • Guanine pairs with Cytosine (3 bonds)<br>
+      In RNA: A pairs with <strong style="color:var(--dna1)">U</strong>racil instead of Thymine!</div>
+    </div>
+  </div>
+
+  <!-- DNA Key Cards -->
+  <div class="grid grid-3 reveal">
+    <div class="key-card red">
+      <span class="card-emoji">🧬</span>
+      <div class="card-title">DNA Structure</div>
+      <div class="card-body">
+        • <span class="highlight">Sugar-phosphate backbone</span><br>
+        • Nitrogenous bases in middle<br>
+        • Double helix shape<br>
+        • Antiparallel strands (3'→5' & 5'→3')<br>
+        • Found in nucleus
+      </div>
+    </div>
+    <div class="key-card teal">
+      <span class="card-emoji">🔄</span>
+      <div class="card-title">DNA Replication</div>
+      <div class="card-body">
+        • Happens during <span class="highlight">S phase</span><br>
+        • <strong>Semiconservative</strong> — each new DNA has 1 old + 1 new strand<br>
+        • Helicase unzips the helix<br>
+        • DNA Polymerase builds new strand<br>
+        • Goes 5'→3' direction only
+      </div>
+    </div>
+    <div class="key-card yellow">
+      <span class="card-emoji">📝</span>
+      <div class="card-title">Gene vs Genome</div>
+      <div class="card-body">
+        • <span class="highlight">Gene</span> = segment of DNA that codes for a protein<br>
+        • <span class="highlight">Genome</span> = ALL the DNA of an organism<br>
+        • Humans have ~20,000-25,000 genes<br>
+        • 46 chromosomes (23 pairs) in humans
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SECTION 2: PROTEIN SYNTHESIS ═══════════════════ -->
+  <div class="section-title reveal" style="margin-top:50px"><span>⚙️</span> Protein Synthesis</div>
+
+  <div class="cartoon-section reveal">
+    <div class="cartoon">🧫</div>
+    <div class="speech-bubble">
+      <strong style="color:var(--accent)">TRANSCRIPTION:</strong> DNA → mRNA (happens in the NUCLEUS)<br>
+      <strong style="color:var(--dna2)">TRANSLATION:</strong> mRNA → Protein (happens at RIBOSOMES in cytoplasm)<br>
+      <em style="color:#777; font-size:0.85rem;">Think: "TRANS-cription = making a TRANSCRIPT (copy)" | "TRANS-lation = TRANSLATING to protein language"</em>
+    </div>
+  </div>
+
+  <div class="steps reveal">
+    <div class="step" data-num="1">
+      <div class="step-title">🔓 Transcription — DNA → mRNA</div>
+      RNA Polymerase unwinds DNA → reads template strand → builds complementary mRNA using RNA nucleotides (A,U,G,C). The mRNA leaves the nucleus.
+    </div>
+    <div class="step" data-num="2">
+      <div class="step-title">✂️ mRNA Processing (Eukaryotes only)</div>
+      <strong>Introns</strong> (non-coding) are CUT OUT. <strong>Exons</strong> (coding) are KEPT and spliced together. 5' cap and poly-A tail added for protection.
+    </div>
+    <div class="step" data-num="3">
+      <div class="step-title">🔤 Translation — mRNA → Protein</div>
+      Ribosome reads mRNA in groups of 3 bases = <strong>CODONS</strong>. tRNA brings amino acids matching each codon. Amino acids link into a polypeptide chain (protein).
+    </div>
+    <div class="step" data-num="4">
+      <div class="step-title">🔑 Start & Stop Codons</div>
+      <strong style="color:var(--green)">AUG</strong> = START codon (also codes for Methionine). <strong style="color:var(--dna1)">UAA, UAG, UGA</strong> = STOP codons (no amino acid, ends translation).
+    </div>
+  </div>
+
+  <div class="mnemonic reveal">
+    <div class="mnemonic-title">🧠 Mnemonic: Where things happen</div>
+    <div class="mnemonic-text">"DNA stays HOME (nucleus), mRNA TRAVELS to work (ribosome)"</div>
+    <div class="mnemonic-explain">Transcription = nucleus | Translation = ribosome (cytoplasm/rough ER)</div>
+  </div>
+
+  <!-- ═══════════════════ SECTION 3: MENDELIAN GENETICS ═══════════════════ -->
+  <div class="section-title reveal" style="margin-top:50px"><span>🫛</span> Mendelian Genetics</div>
+
+  <div class="grid grid-2 reveal">
+    <div class="key-card green">
+      <span class="card-emoji">📚</span>
+      <div class="card-title">Key Vocabulary</div>
+      <div class="card-body">
+        • <span class="highlight">Allele</span> — different versions of a gene<br>
+        • <span class="highlight">Dominant (B)</span> — uppercase, masks recessive<br>
+        • <span class="highlight">Recessive (b)</span> — lowercase, only shows when bb<br>
+        • <span class="highlight">Homozygous</span> — BB or bb (same alleles)<br>
+        • <span class="highlight">Heterozygous</span> — Bb (different alleles)<br>
+        • <span class="highlight">Genotype</span> — genetic makeup (Bb)<br>
+        • <span class="highlight">Phenotype</span> — physical appearance (brown eyes)
+      </div>
+    </div>
+    <div class="key-card purple">
+      <span class="card-emoji">📜</span>
+      <div class="card-title">Mendel's Laws</div>
+      <div class="card-body">
+        <strong style="color:var(--purple)">Law of Segregation:</strong><br>
+        Each organism has 2 alleles per trait. They separate during gamete formation (meiosis) — each gamete gets only 1 allele.<br><br>
+        <strong style="color:var(--pink)">Law of Independent Assortment:</strong><br>
+        Genes on DIFFERENT chromosomes are inherited independently of each other.
+      </div>
+    </div>
+  </div>
+
+  <!-- Punnett Square Visual -->
+  <div class="dna-visual reveal">
+    <h3 style="font-family:'Fredoka One',cursive; font-size:1.4rem; margin-bottom:4px; color:var(--accent)">
+      Punnett Square — Monohybrid Cross (Tt × Tt)
+    </h3>
+    <p style="color:#777; font-size:0.9rem; margin-bottom:16px">T = Tall (dominant) | t = short (recessive)</p>
+    <div style="display:flex; justify-content:center;">
+      <div class="punnett">
+        <div class="punnett-cell header"></div>
+        <div class="punnett-cell header">T</div>
+        <div class="punnett-cell header">t</div>
+        <div class="punnett-cell header">T</div>
+        <div class="punnett-cell dominant">TT</div>
+        <div class="punnett-cell dominant">Tt</div>
+        <div class="punnett-cell header">t</div>
+        <div class="punnett-cell dominant">Tt</div>
+        <div class="punnett-cell recessive">tt</div>
+      </div>
+    </div>
+    <div class="ratio-bar" style="max-width:400px; margin: 16px auto;">
+      <div class="ratio-seg" style="flex:3; background:var(--green);">3 Tall</div>
+      <div class="ratio-seg" style="flex:1; background:var(--dna1);">1 short</div>
+    </div>
+    <p style="color:#888; font-size:0.9rem;">
+      <strong style="color:var(--green)">Genotypic ratio:</strong> 1 TT : 2 Tt : 1 tt &nbsp;|&nbsp;
+      <strong style="color:var(--accent)">Phenotypic ratio: 3:1</strong>
+    </p>
+  </div>
+
+  <!-- ═══════════════════ SECTION 4: NON-MENDELIAN ═══════════════════ -->
+  <div class="section-title reveal" style="margin-top:50px"><span>🧩</span> Non-Mendelian Inheritance</div>
+
+  <div class="grid grid-3 reveal">
+    <div class="key-card pink">
+      <span class="card-emoji">🌸</span>
+      <div class="card-title">Incomplete Dominance</div>
+      <div class="card-body">
+        Neither allele fully dominates → <span class="highlight">BLENDING</span><br><br>
+        Red (RR) × White (WW) = <strong style="color:var(--pink)">PINK (RW)</strong><br><br>
+        Phenotypic ratio: <strong>1:2:1</strong><br>
+        (1 red : 2 pink : 1 white)
+      </div>
+    </div>
+    <div class="key-card teal">
+      <span class="card-emoji">🅰️</span>
+      <div class="card-title">Codominance</div>
+      <div class="card-body">
+        BOTH alleles expressed simultaneously — <span class="highlight">no blending</span><br><br>
+        Example: Blood type AB (both A and B antigens on red blood cells)<br><br>
+        Roan cattle: Red AND white hairs visible
+      </div>
+    </div>
+    <div class="key-card red">
+      <span class="card-emoji">🩸</span>
+      <div class="card-title">Multiple Alleles — ABO Blood Type</div>
+      <div class="card-body">
+        3 alleles: <strong>I^A, I^B, i</strong><br>
+        I^A and I^B are codominant<br>
+        i is recessive<br><br>
+        A = I^A I^A or I^A i<br>
+        B = I^B I^B or I^B i<br>
+        AB = I^A I^B<br>
+        O = ii
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SECTION 5: SEX-LINKED / CHROMOSOMES ═══════════════════ -->
+  <div class="section-title reveal" style="margin-top:50px"><span>🔗</span> Sex-Linked Traits & Mutations</div>
+
+  <div class="cartoon-section reveal">
+    <div class="cartoon">👦</div>
+    <div class="speech-bubble">
+      <strong style="color:var(--dna1)">Why males get sex-linked diseases MORE often:</strong><br>
+      Males = XY → only ONE X chromosome. If that X has a recessive bad gene, <strong>no second X to mask it!</strong><br>
+      Females = XX → need BOTH X's to have the gene to show it. They're often <strong>carriers</strong> (X^n X).<br>
+      <em style="color:#777; font-size:0.85rem;">Examples: Color blindness, Hemophilia, Duchenne Muscular Dystrophy</em>
+    </div>
+  </div>
+
+  <div class="grid grid-2 reveal">
+    <div class="key-card green">
+      <span class="card-emoji">🧬</span>
+      <div class="card-title">Chromosomal Mutations</div>
+      <div class="card-body">
+        <strong style="color:var(--accent)">Nondisjunction:</strong> chromosomes fail to separate during meiosis<br><br>
+        • <span class="highlight">Trisomy 21</span> = Down Syndrome (3 copies of chr.21)<br>
+        • <span class="highlight">Turner (XO)</span> = only 1 sex chromosome<br>
+        • <span class="highlight">Klinefelter (XXY)</span> = extra X in males
+      </div>
+    </div>
+    <div class="key-card yellow">
+      <span class="card-emoji">✂️</span>
+      <div class="card-title">Gene Mutations</div>
+      <div class="card-body">
+        <strong>Point Mutations (single base change):</strong><br>
+        • <span class="highlight">Substitution</span> — wrong base swapped in<br>
+        • <span class="highlight">Insertion</span> — base added (causes frameshift ⚠️)<br>
+        • <span class="highlight">Deletion</span> — base removed (causes frameshift ⚠️)<br><br>
+        <em style="color:#777">Frameshift mutations are MOST DEVASTATING — shifts the entire reading frame!</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SECTION 6: MEIOSIS ═══════════════════ -->
+  <div class="section-title reveal" style="margin-top:50px"><span>🔀</span> Meiosis vs Mitosis</div>
+
+  <div class="grid grid-2 reveal">
+    <div class="key-card purple">
+      <span class="card-emoji">🔄</span>
+      <div class="card-title">Mitosis (PMAT)</div>
+      <div class="card-body">
+        • <strong>Purpose:</strong> Growth & repair<br>
+        • <strong>Result:</strong> 2 identical diploid (2n) cells<br>
+        • <strong>Where:</strong> Body (somatic) cells<br>
+        • NO genetic variation<br>
+        • <span class="highlight">1 division</span>
+      </div>
+    </div>
+    <div class="key-card pink">
+      <span class="card-emoji">🎲</span>
+      <div class="card-title">Meiosis (PMAT I + PMAT II)</div>
+      <div class="card-body">
+        • <strong>Purpose:</strong> Sexual reproduction<br>
+        • <strong>Result:</strong> 4 unique haploid (n) cells (gametes)<br>
+        • <strong>Where:</strong> Gonads (testes/ovaries)<br>
+        • Creates genetic variation via <span class="highlight">crossing over</span><br>
+        • <span class="highlight">2 divisions</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnemonic reveal">
+    <div class="mnemonic-title">🧠 Meiosis Mnemonic</div>
+    <div class="mnemonic-text">"My (Meiosis) Girls (Gametes) Have (Haploid) Lots (4 cells)"</div>
+    <div class="mnemonic-explain">Meiosis → Gametes → Haploid → 4 cells</div>
+  </div>
+
+  <!-- ═══════════════════ CHEAT SHEET ═══════════════════ -->
+  <div class="cheat-sheet reveal">
+    <div class="cheat-title">⚡ ULTRA SPEED CHEAT SHEET</div>
+    <div class="cheat-grid">
+      <div class="cheat-item">
+        <div class="cheat-term">Helicase</div>
+        <div class="cheat-def">Enzyme that UNZIPS DNA helix during replication</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">DNA Polymerase</div>
+        <div class="cheat-def">Builds new DNA strand (only 5'→3' direction)</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">RNA Polymerase</div>
+        <div class="cheat-def">Builds mRNA during transcription</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Codon</div>
+        <div class="cheat-def">3-base mRNA sequence = 1 amino acid</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Anticodon</div>
+        <div class="cheat-def">3-base sequence on tRNA, complementary to codon</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Intron</div>
+        <div class="cheat-def">Non-coding sequences (cut OUT during splicing)</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Exon</div>
+        <div class="cheat-def">Coding sequences (KEPT → expressed)</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Operon (prokaryotes)</div>
+        <div class="cheat-def">Group of genes controlled by one promoter (e.g., lac operon)</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Karyotype</div>
+        <div class="cheat-def">Image of all chromosomes in a cell arranged in pairs</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Epistasis</div>
+        <div class="cheat-def">One gene masks the expression of another gene</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Polygenic Inheritance</div>
+        <div class="cheat-def">Multiple genes control one trait (e.g., skin colour, height)</div>
+      </div>
+      <div class="cheat-item">
+        <div class="cheat-term">Test Cross</div>
+        <div class="cheat-def">Cross unknown dominant phenotype with homozygous recessive (bb) to find genotype</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ QUICK QUIZ ═══════════════════ -->
+  <div class="section-title reveal"><span>🎯</span> Quick Quiz — Test Yourself</div>
+
+  <div id="quiz-container" class="reveal">
+
+    <div class="quiz-card">
+      <div class="quiz-q">1. Which bases pair together in DNA?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-correct="false">A-G and T-C</button>
+        <button class="quiz-btn" data-correct="true">A-T and G-C</button>
+        <button class="quiz-btn" data-correct="false">A-C and G-T</button>
+        <button class="quiz-btn" data-correct="false">A-U and G-C</button>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">2. Where does translation take place?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-correct="false">Nucleus</button>
+        <button class="quiz-btn" data-correct="false">Mitochondria</button>
+        <button class="quiz-btn" data-correct="true">Ribosome (cytoplasm)</button>
+        <button class="quiz-btn" data-correct="false">Golgi apparatus</button>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">3. A carrier female (X^H X^h) × normal male (X^H Y) — what % of sons will have hemophilia?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-correct="false">0%</button>
+        <button class="quiz-btn" data-correct="true">50%</button>
+        <button class="quiz-btn" data-correct="false">25%</button>
+        <button class="quiz-btn" data-correct="false">100%</button>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">4. What type of mutation causes a FRAMESHIFT?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-correct="false">Substitution only</button>
+        <button class="quiz-btn" data-correct="true">Insertion or Deletion</button>
+        <button class="quiz-btn" data-correct="false">Crossing over</button>
+        <button class="quiz-btn" data-correct="false">Silent mutation</button>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">5. Meiosis produces how many cells, and are they diploid or haploid?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" data-correct="false">2 diploid cells</button>
+        <button class="quiz-btn" data-correct="false">2 haploid cells</button>
+        <button class="quiz-btn" data-correct="true">4 haploid cells</button>
+        <button class="quiz-btn" data-correct="false">4 diploid cells</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="go-message">🚀 You've got this! GO CRUSH THAT EXAM! 🧬🔥</div>
+  <p style="margin-top:12px; color:#444">SBH3U Unit 4 — Genetics Quick Study Guide</p>
+</footer>
+
+<script>
+// ═══════ DNA BACKGROUND PARTICLES ═══════
+const dnaBg = document.getElementById('dnaBg');
+const emojis = ['🧬','⚗️','🔬','🫀','🧪','🦠'];
+for(let i=0; i<15; i++) {
+  const el = document.createElement('div');
+  el.className = 'dna-strand';
+  el.style.left = Math.random()*100 + 'vw';
+  el.style.animationDuration = (8 + Math.random()*12) + 's';
+  el.style.animationDelay = '-' + Math.random()*20 + 's';
+  el.style.fontSize = (20 + Math.random()*30) + 'px';
+  el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  dnaBg.appendChild(el);
+}
+
+// ═══════ COUNTDOWN TIMER ═══════
+let totalSeconds = 60 * 60;
+const countdownEl = document.getElementById('countdown');
+const timer = setInterval(() => {
+  totalSeconds--;
+  if(totalSeconds <= 0) { clearInterval(timer); countdownEl.textContent = "GO GO GO! 🚀"; return; }
+  const m = Math.floor(totalSeconds/60);
+  const s = totalSeconds % 60;
+  countdownEl.textContent = m + ':' + String(s).padStart(2,'0');
+  if(totalSeconds < 600) countdownEl.style.color = 'var(--dna1)';
+  if(totalSeconds < 300) countdownEl.style.animation = 'pulse 0.5s ease-in-out infinite';
+}, 1000);
+
+// ═══════ QUIZ LOGIC ═══════
+document.querySelectorAll('.quiz-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const options = this.parentElement.querySelectorAll('.quiz-btn');
+    options.forEach(b => {
+      b.disabled = true;
+      if(b.dataset.correct === 'true') b.classList.add('correct');
+    });
+    if(this.dataset.correct !== 'true') this.classList.add('wrong');
+  });
+});
+
+// ═══════ SCROLL REVEAL ═══════
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
